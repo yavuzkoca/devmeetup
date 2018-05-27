@@ -16,7 +16,7 @@
                 </v-list-tile>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar class="primary" dark>
+        <v-toolbar class="error" dark>
             <v-toolbar-side-icon
                     @click="sideNav = !sideNav"
                     class="hidden-md-and-up"

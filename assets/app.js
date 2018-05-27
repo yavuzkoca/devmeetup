@@ -9,7 +9,6 @@ import { createStore } from 'store/index'
 import { createRouter } from 'router/index'
 import { sync } from 'vuex-router-sync'
 
-console.log(Theme);
 Vue.use(Vuetify,Theme);
 
 Object.keys(Components).forEach(key => {
