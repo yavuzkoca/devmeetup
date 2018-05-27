@@ -3,12 +3,14 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.css'
 import App from './App.vue'
 import Components from 'components/_index'
+import Theme from '../stylus/theme.js'
 
 import { createStore } from 'store/index'
 import { createRouter } from 'router/index'
 import { sync } from 'vuex-router-sync'
 
-Vue.use(Vuetify)
+console.log(Theme);
+Vue.use(Vuetify,Theme);
 
 Object.keys(Components).forEach(key => {
   Vue.component(key, Components[key])
