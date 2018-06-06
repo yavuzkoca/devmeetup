@@ -67,6 +67,21 @@
                         </v-flex>
                     </v-layout>
                     <v-layout row>
+                        <v-flex xs12 sm9 offset-sm3>
+                            <h4>Choose a Date & Time</h4>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row class="mb-2">
+                        <v-flex xs12 sm6 offset-sm3>
+                            <v-date-picker v-model="date"></v-date-picker>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row class="mb-2">
+                        <v-flex xs12 sm6 offset-sm3>
+                            <v-time-picker v-model="time"></v-time-picker>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row>
                         <v-flex xs12 sm6 offset-sm3>
                            <v-btn
                                    class="primary"
@@ -76,6 +91,7 @@
                         </v-flex>
                     </v-layout>
                 </form>
+                {{ submittableDateTime }}
             </v-flex>
         </v-layout>
     </v-container>
@@ -91,17 +107,26 @@
                 title: '',
                 location: '',
                 imageURL: '',
-                description: ''
+                description: '',
+                date: new Date().toJSON().slice(0,10).replace(/-/g,'-'),
+                time: "00:00"
             }
         },
         computed: {
             formIsValid(){
                 return this.title !== '' && this.location !== '' && this.imageURL !== '' && this.description !== '';
+            },
+            submittableDateTime(){
+                const date = new Date(this.date);
+                date.setUTCHours(this.time.match(/^(\d+)/)[1]);
+                date.setMinutes(this.time.match(/:(\d+)/)[1]);
+
+                return date;
             }
         },
         methods: {
             onCreateMeetup(){
-                if(!this.formIsValid()){
+                if(!this.formIsValid){
                     return;
                 }
                 const meetupData = {
@@ -109,7 +134,7 @@
                     location: this.location,
                     imageURL: this.imageURL,
                     description: this.description,
-                    date: new Date()
+                    date: this.submittableDateTime
                 };
                 this.$store.dispatch('createMeetup', meetupData);
                 this.$router.push('/meetups')
