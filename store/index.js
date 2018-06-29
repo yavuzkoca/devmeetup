@@ -11,7 +11,7 @@ export function createStore () {
                     imageURL: 'http://notkutusu.com/img/gmail/Screenshot_26.png',
                     id: 'adfjlsadf',
                     title: 'Meetup in New York',
-                    date: '2017-07-19',
+                    date: new Date(),
                     location: 'Turkey',
                     description: 'Lorem Ipsum'
                 },
@@ -19,7 +19,7 @@ export function createStore () {
                     imageURL: 'http://notkutusu.com/img/gmail/Screenshot_26.png',
                     id: 'ajlsadf',
                     title: 'Meetup in Paris',
-                    date: '2017-07-17',
+                    date: new Date(),
                     location: 'Turkey',
                     description: 'Lorem Ipsum'
                 }

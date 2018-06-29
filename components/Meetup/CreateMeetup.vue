@@ -91,7 +91,6 @@
                         </v-flex>
                     </v-layout>
                 </form>
-                {{ submittableDateTime }}
             </v-flex>
         </v-layout>
     </v-container>

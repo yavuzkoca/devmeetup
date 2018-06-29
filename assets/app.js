@@ -4,12 +4,14 @@ import 'vuetify/dist/vuetify.css'
 import App from './App.vue'
 import Components from 'components/_index'
 import Theme from '../stylus/theme.js'
+import DateFilter from '../filters/date.js'
 
 import { createStore } from 'store/index'
 import { createRouter } from 'router/index'
 import { sync } from 'vuex-router-sync'
 
 Vue.use(Vuetify,Theme);
+Vue.filter('dateFilter', DateFilter);
 
 Object.keys(Components).forEach(key => {
   Vue.component(key, Components[key])
@@ -30,10 +32,10 @@ export function createApp (ssrContext) {
   // here we inject the router, store and ssr context to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = new Vue({
-    router,
-    store,
-    ssrContext,
-    render: h => h(App)
+      router,
+      store,
+      ssrContext,
+      render: h => h(App)
   });
 
   // expose the app, the router and the store.
