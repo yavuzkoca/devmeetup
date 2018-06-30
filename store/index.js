@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as firebase from 'firebase'
 
 Vue.use(Vuex);
 
@@ -24,10 +25,7 @@ export function createStore () {
                     description: 'Lorem Ipsum'
                 }
             ],
-            user: {
-                id: 'ajlsfkaj',
-                registeredMeetups: ['ajlsadf']
-            }
+            user: null
         },
 
         actions: {
@@ -42,12 +40,51 @@ export function createStore () {
                 };
                 // Reach out to firebase and store it
                 commit('createMeetup', meetup)
+            },
+
+            // Sign up user to firebase
+            signUserUp({commit}, payload){
+                firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+                    .then(
+                        user => {
+                            const newUser = {
+                                id: user.uid,
+                                registeredMeetups: [] // New user can not have registered meetups
+                            };
+                            commit('setUser', newUser);
+                        }
+                    ).catch(
+                        error => {
+                            console.log(error)
+                        }
+                    )
+            },
+
+            // Sign in user from firebase
+            signUserIn({commit}, payload){
+                firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+                    .then(
+                        user => {
+                            const newUser = {
+                                id: user.user.uid,
+                                registeredMeetups: [] // This part will be fixed
+                            };
+                            commit('setUser', newUser);
+                        }
+                    ).catch(
+                        error => {
+                            console.log(error)
+                        }
+                    )
             }
         },
 
         mutations: {
             createMeetup(state, payload){
                 state.loadedMeetups.push(payload);
+            },
+            setUser(state, payload){
+                state.user = payload;
             }
         },
 
@@ -66,6 +103,9 @@ export function createStore () {
                         return meetup.id === meetupId;
                     });
                 }
+            },
+            user(state){
+                return state.user;
             }
         }
     })
