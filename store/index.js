@@ -25,7 +25,9 @@ export function createStore () {
                     description: 'Lorem Ipsum'
                 }
             ],
-            user: null
+            user: null,
+            loading: false,
+            authError: null
         },
 
         actions: {
@@ -44,9 +46,12 @@ export function createStore () {
 
             // Sign up user to firebase
             signUserUp({commit}, payload){
+                commit('setLoading', true);
+                commit('clearAuthError');
                 firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
                     .then(
                         user => {
+                            commit('setLoading', false);
                             const newUser = {
                                 id: user.uid,
                                 registeredMeetups: [] // New user can not have registered meetups
@@ -55,7 +60,8 @@ export function createStore () {
                         }
                     ).catch(
                         error => {
-                            console.log(error)
+                            commit('setLoading', false);
+                            commit('setAuthError', error.message);
                         }
                     )
             },
@@ -76,6 +82,10 @@ export function createStore () {
                             console.log(error)
                         }
                     )
+            },
+
+            clearAuthError ({commit}) {
+                commit('clearAuthError')
             }
         },
 
@@ -85,6 +95,15 @@ export function createStore () {
             },
             setUser(state, payload){
                 state.user = payload;
+            },
+            setLoading (state, payload) {
+                state.loading = payload
+            },
+            setAuthError (state, payload) {
+                state.authError = payload
+            },
+            clearAuthError (state, payload) {
+                state.authError = null
             }
         },
 
@@ -106,6 +125,12 @@ export function createStore () {
             },
             user(state){
                 return state.user;
+            },
+            authError (state) {
+                return state.authError
+            },
+            loading (state) {
+                return state.loading
             }
         }
     })
