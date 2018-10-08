@@ -7,6 +7,7 @@ import CreateMeetup from '../components/Meetup/CreateMeetup.vue'
 import Profile from '../components/User/Profile.vue'
 import Signup from '../components/User/Signup.vue'
 import Signin from '../components/User/Signin.vue'
+import AuthGuard from './auth-guard'
 
 // The meta data for your routes
 const meta = require('./meta.json');
@@ -46,7 +47,8 @@ export function createRouter () {
             {
                 path: '/meetup/new',
                 name: 'CreateMeetup',
-                component: CreateMeetup
+                component: CreateMeetup,
+                // beforeEnter: AuthGuard
             },
             {
                 path: '/meetups/:id',
@@ -57,7 +59,8 @@ export function createRouter () {
             {
                 path: '/profile',
                 name: 'Profile',
-                component: Profile
+                component: Profile,
+                // beforeEnter: AuthGuard
             },
             {
                 path: '/signup',
