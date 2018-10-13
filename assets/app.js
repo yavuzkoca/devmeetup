@@ -7,6 +7,7 @@ import Theme from '../stylus/theme.js'
 import DateFilter from '../filters/date.js'
 import * as firebase from 'firebase'
 import AlertComp from '../components/Shared/Alert'
+import EditMeetupDetailsDialog from '../components/Meetup/Edit/EditMeetupDetailsDialog'
 
 import { createStore } from 'store/index'
 import { createRouter } from 'router/index'
@@ -15,6 +16,7 @@ import { sync } from 'vuex-router-sync'
 Vue.use(Vuetify,Theme);
 Vue.filter('dateFilter', DateFilter);
 Vue.component('app-alert', AlertComp);
+Vue.component('app-edit-meetup-details-dialog', EditMeetupDetailsDialog);
 
 Object.keys(Components).forEach(key => {
   Vue.component(key, Components[key])
@@ -46,7 +48,7 @@ export function createApp (ssrContext) {
                   authDomain: 'devmeetup-391ad.firebaseapp.com',
                   databaseURL: 'https://devmeetup-391ad.firebaseio.com',
                   projectId: 'devmeetup-391ad',
-                  storageBucket: 'devmeetup-391ad.appspot.com',
+                  storageBucket: 'gs://devmeetup-391ad.appspot.com',
                   messagingSenderId: '362731410386'
 
               })
