@@ -8,6 +8,8 @@ import DateFilter from '../filters/date.js'
 import * as firebase from 'firebase'
 import AlertComp from '../components/Shared/Alert'
 import EditMeetupDetailsDialog from '../components/Meetup/Edit/EditMeetupDetailsDialog'
+import EditMeetupDateDialog from '../components/Meetup/Edit/EditMeetupDateDialog'
+import RegisterDialog from '../components/Meetup/Registration/RegisterDialog'
 
 import { createStore } from 'store/index'
 import { createRouter } from 'router/index'
@@ -17,6 +19,8 @@ Vue.use(Vuetify,Theme);
 Vue.filter('dateFilter', DateFilter);
 Vue.component('app-alert', AlertComp);
 Vue.component('app-edit-meetup-details-dialog', EditMeetupDetailsDialog);
+Vue.component('app-edit-meetup-date-dialog', EditMeetupDateDialog);
+Vue.component('app-meetup-register-dialog', RegisterDialog);
 
 Object.keys(Components).forEach(key => {
   Vue.component(key, Components[key])

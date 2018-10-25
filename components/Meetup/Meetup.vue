@@ -29,12 +29,15 @@
                             {{ meetup.date | dateFilter }} - {{ meetup.location }}
                         </div>
                         <div>
+                            <app-edit-meetup-date-dialog :meetup="meetup" v-if="userIsCreator"></app-edit-meetup-date-dialog>
+                        </div>
+                        <div>
                             {{ meetup.description }}
                         </div>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn class="primary">Register</v-btn>
+                        <app-meetup-register-dialog :meetupId="meetup.id"></app-meetup-register-dialog>
                     </v-card-actions>
                 </v-card>
             </v-flex>
